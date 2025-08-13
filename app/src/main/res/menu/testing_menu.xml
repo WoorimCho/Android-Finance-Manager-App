@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:title ="Edit Account"
+        android:id="@+id/toAccountEditor"
+        android:icon= "@drawable/ic_menu_shift_change"
+        app:showAsAction="never"
+        />
+    <item
+        android:title ="Edit Stock"
+        android:id="@+id/toStockEditor"
+        android:icon= "@drawable/ic_brand_black_interac"
+        app:showAsAction="never"/>
+    <item
+        android:title ="ViewAccount"
+        android:id="@+id/toAccountViewer"
+        android:icon= "@drawable/ic_menu"
+        app:showAsAction="never"/>
+</menu>
