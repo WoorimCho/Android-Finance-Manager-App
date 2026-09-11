@@ -4,7 +4,7 @@ A personal finance management app for Android. Manage multiple accounts, track t
 
 ## What This Is
 
-A View-system app built with XML layouts and Activities. An unfinished Jetpack Compose migration exists in the codebase (AccountScreen.kt and fragments) but is not integrated into the running app and can be ignored for now.
+A View-system app built with XML layouts and Activities. An unfinished Jetpack Compose migration exists in the codebase (AccountScreen.kt, Compose dialogs, and theme definitions in ui/theme/) but is not integrated into the running app and can be ignored for now.
 
 ## Features
 
@@ -40,15 +40,37 @@ Android-Finance-Manager-App/
 │   │   ├── TransferActivity.kt
 │   │   ├── TransferHistoryActivity.kt
 │   │   ├── room/                        # Room entities and DAOs
+│   │   ├── screen/                      # State management and Compose dialogs
+│   │   │   ├── account/                 # AccountViewModel, AccountState, AccountEvent
+│   │   │   ├── stock/                   # StockViewModel, StockState, StockEvent
+│   │   │   └── types/                   # SortType, StockSortType
 │   │   ├── stocks/                      # Stock business logic
-│   │   ├── screen/                      # Compose fragments (not used)
-│   │   └── ui/                          # UI utilities
+│   │   └── ui/
+│   │       └── theme/                   # Compose theme definitions (Color, Theme, Type)
 │   ├── res/                             # XML layouts, strings, themes
 │   └── AndroidManifest.xml
 ├── app/build.gradle.kts
 ├── settings.gradle.kts
 └── gradle/
 ```
+
+## Architecture
+
+The codebase contains a proper state-and-event architecture:
+
+**screen/account/**
+- `AccountViewModel` – manages account list and operations
+- `AccountState` – UI state for accounts
+- `AccountEvent` – user actions (create, delete, sort, etc.)
+- `AddAccountDialog` – Compose dialog for adding accounts (not wired to Activities)
+
+**screen/stock/** (mirrors account structure)
+- `StockViewModel` – manages stock holdings
+- `StockState` – UI state for stocks
+- `StockEvent` – user actions on stocks
+- `StockDialog` – Compose dialog for stock operations (not wired to Activities)
+
+**Current Gap:** The Activities call Room DAOs directly, bypassing these ViewModels. The next step is to wire Activities to use the ViewModels instead.
 
 ## Activities
 
@@ -65,13 +87,13 @@ Android-Finance-Manager-App/
 
 ## Database
 
-Room with Kotlin annotation processing. Entities and DAOs are in `room/` package. Database operations use Kotlin coroutines.
+Room with Kotlin Symbol Processing (KSP). Entities and DAOs are in `room/` package. Database operations use Kotlin coroutines.
 
 ## Compose Migration (In Progress)
 
-AccountScreen.kt contains Composable functions and theme definitions for a Material 3 UI, but is not referenced by any Activity. This was the start of a migration to Compose that has been paused. The XML layout system is currently in use throughout the app.
+AccountScreen.kt, Compose dialogs (AddAccountDialog, StockDialog), and theme definitions in `ui/theme/` are part of an unfinished Compose migration. None of these are currently referenced by Activities.
 
-If you plan to finish the migration, start by integrating AccountScreen into AccountViewerActivity as setContent instead of setContentView.
+If you plan to finish the migration, wire Activities to use the ViewModels in `screen/` instead of calling DAOs directly, then replace setContentView with setContent and integrate the Compose dialogs.
 
 ## Building
 
@@ -125,10 +147,10 @@ To run:
 
 ## Next Steps
 
-- Complete the Compose migration by connecting AccountScreen to Activities
-- Add unit tests and instrumented tests for business logic
-- Add integration tests for Room database queries
-- Consider extracting business logic into a ViewModel layer
+- Wire Activities to use ViewModels instead of calling DAOs directly
+- Integrate Compose dialogs (AddAccountDialog, StockDialog) into Activities or convert to custom views
+- Complete the Compose migration by replacing setContentView with setContent
+- Add unit and instrumented tests for business logic and Room queries
 
 ---
 
