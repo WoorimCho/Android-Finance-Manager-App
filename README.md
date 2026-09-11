@@ -1,203 +1,135 @@
 # Android Finance Manager App
 
-A comprehensive Android application for managing personal finances, built with Kotlin and Jetpack Compose. This application allows users to manage multiple accounts, track transactions, and manage stock portfolios.
+A personal finance management app for Android. Manage multiple accounts, track transactions, and maintain a stock portfolio.
+
+## What This Is
+
+A View-system app built with XML layouts and Activities. An unfinished Jetpack Compose migration exists in the codebase (AccountScreen.kt and fragments) but is not integrated into the running app and can be ignored for now.
 
 ## Features
 
 - **Account Management**: Create, edit, and view multiple financial accounts
 - **Transaction Tracking**: Record and view transaction history
 - **Stock Portfolio**: Manage stock holdings and perform stock exchanges
-- **Fund Transfers**: Transfer funds between accounts with history tracking
+- **Fund Transfers**: Transfer funds between accounts with transfer history
 - **Local Database**: Persistent storage using Room database
-- **Material Design 3**: Modern UI built with Jetpack Compose
 
 ## Tech Stack
 
 - **Language**: Kotlin 100%
-- **UI Framework**: Jetpack Compose
-- **Database**: Room (with Kotlin Symbol Processing - KSP)
-- **Build System**: Gradle (Kotlin DSL)
-- **Minimum SDK**: API 29
-- **Target SDK**: API 34
-- **Compile SDK**: API 34
+- **UI**: XML layouts with Activity-based navigation
+- **Database**: Room 2.5.2 with Kotlin Symbol Processing (KSP)
+- **Build System**: Gradle with Kotlin DSL and version catalog
+- **Minimum SDK**: 29
+- **Target SDK**: 34
 
 ## Project Structure
 
 ```
 Android-Finance-Manager-App/
-├── app/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/example/accountmanagertrialzone/
-│   │   │   │   ├── MainActivity.kt              # Main entry point
-│   │   │   │   ├── AccountEditorActivity.kt     # Account creation/editing
-│   │   │   │   ├── AccountViewerActivity.kt     # View account details
-│   │   │   │   ├── AccountViewerAdapter.kt      # Adapter for account list
-│   │   │   │   ├── AccountScreen.kt             # Compose UI for accounts
-│   │   │   │   ├── StockEditorActivity.kt       # Stock management
-│   │   │   │   ├── StockExchangeActivity.kt     # Stock trading
-│   │   │   │   ├── TransactionHistoryActivity.kt # Transaction history
-│   │   │   │   ├── TransferActivity.kt          # Fund transfers
-│   │   │   │   ├── TransferHistoryActivity.kt   # Transfer history
-│   │   │   │   ├── room/                        # Room database entities
-│   │   │   │   ├── stocks/                      # Stock-related logic
-│   │   │   │   ├── screen/                      # Compose screen components
-│   │   │   │   └── ui/                          # UI utilities
-│   │   │   └── res/                             # Resources (layouts, strings, etc.)
-│   │   ├── test/                                # Unit tests
-│   │   └── androidTest/                         # Instrumented tests
-│   └── build.gradle.kts                         # App-level build configuration
-├── build.gradle.kts                             # Project-level build configuration
-├── settings.gradle.kts                          # Gradle settings
-└── gradle/                                      # Gradle wrapper files
+├── app/src/main/
+│   ├── java/com/example/accountmanagertrialzone/
+│   │   ├── MainActivity.kt              # Main entry point
+│   │   ├── AccountEditorActivity.kt     # Create/edit accounts
+│   │   ├── AccountViewerActivity.kt     # View account details
+│   │   ├── AccountViewerAdapter.kt      # RecyclerView adapter
+│   │   ├── AccountScreen.kt             # Unfinished Compose (not used)
+│   │   ├── StockEditorActivity.kt       # Stock management
+│   │   ├── StockExchangeActivity.kt     # Stock trading
+│   │   ├── TransactionHistoryActivity.kt
+│   │   ├── TransferActivity.kt
+│   │   ├── TransferHistoryActivity.kt
+│   │   ├── room/                        # Room entities and DAOs
+│   │   ├── stocks/                      # Stock business logic
+│   │   ├── screen/                      # Compose fragments (not used)
+│   │   └── ui/                          # UI utilities
+│   ├── res/                             # XML layouts, strings, themes
+│   └── AndroidManifest.xml
+├── app/build.gradle.kts
+├── settings.gradle.kts
+└── gradle/
 ```
 
-## Key Activities
+## Activities
 
-### MainActivity
-The main entry point of the application, displaying the dashboard and primary navigation.
-
-### AccountEditorActivity
-Allows users to create new accounts or edit existing ones. Parent activity for account management.
-
-### AccountViewerActivity
-Displays detailed information about selected accounts with list of all accounts.
-
-### StockExchangeActivity
-Handles stock portfolio management and trading operations.
-
-### TransferActivity
-Facilitates fund transfers between accounts.
-
-### Transaction & Transfer History
-Activities to view historical records of transactions and transfers.
-
-## Dependencies
-
-### Room Database
-- `androidx.room:room-runtime:2.5.2`
-- `androidx.room:room-ktx:2.5.2`
-- `androidx.room:room-rxjava2:2.5.2`
-- Compiler: Uses Kotlin Symbol Processing (KSP)
-
-### Jetpack Compose & UI
-- `androidx.activity:activity-compose`
-- `androidx.compose.bom`
-- `androidx.material3`
-- `androidx.appcompat`
-- `com.google.android.material:material`
-- `androidx.constraintlayout`
-
-### Core Libraries
-- `androidx.core:core-ktx`
-- `androidx.lifecycle:lifecycle-runtime-ktx`
-- `androidx.junit`
-- `androidx.test.espresso:espresso-core`
-
-## Getting Started
-
-### Prerequisites
-- Android Studio (latest)
-- JDK 8 or higher
-- Android SDK with API level 34
-
-### Building the Project
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/WoorimCho/Android-Finance-Manager-App.git
-   cd Android-Finance-Manager-App
-   ```
-
-2. **Open in Android Studio**
-   - File → Open → Select the project directory
-
-3. **Build the project**
-   ```bash
-   ./gradlew build
-   ```
-
-4. **Run the application**
-   ```bash
-   ./gradlew installDebug
-   ```
-   Or use Android Studio's Run button to install and run on an emulator/device.
-
-## Gradle Configuration
-
-The project uses modern Gradle features:
-- **Kotlin DSL** for build scripts
-- **Kotlin Symbol Processing (KSP)** for annotation processing
-- **Version Catalog** for dependency management
-
-### Build Options
-- **Minimum SDK**: 29
-- **Target SDK**: 34
-- **Java Compatibility**: 1.8
-- **Kotlin JVM Target**: 1.8
+| Activity | Purpose |
+|----------|---------|
+| MainActivity | Dashboard and primary navigation |
+| AccountEditorActivity | Create or edit an account |
+| AccountViewerActivity | View all accounts and account details |
+| TransferActivity | Transfer funds between accounts |
+| TransferHistoryActivity | View transfer history |
+| StockEditorActivity | Add or modify stock holdings |
+| StockExchangeActivity | Execute stock trades |
+| TransactionHistoryActivity | View all transactions |
 
 ## Database
 
-The app uses Room for local data persistence. Database operations are handled through:
-- Entity definitions in the `room/` package
-- Data Access Objects (DAOs)
-- Kotlin coroutines for async database operations
+Room with Kotlin annotation processing. Entities and DAOs are in `room/` package. Database operations use Kotlin coroutines.
+
+## Compose Migration (In Progress)
+
+AccountScreen.kt contains Composable functions and theme definitions for a Material 3 UI, but is not referenced by any Activity. This was the start of a migration to Compose that has been paused. The XML layout system is currently in use throughout the app.
+
+If you plan to finish the migration, start by integrating AccountScreen into AccountViewerActivity as setContent instead of setContentView.
+
+## Building
+
+```bash
+# Clone
+git clone https://github.com/WoorimCho/Android-Finance-Manager-App.git
+cd Android-Finance-Manager-App
+
+# Build
+./gradlew build
+
+# Install and run
+./gradlew installDebug
+```
+
+Or open in Android Studio and use the Run button.
+
+## Dependencies
+
+**Database**
+- androidx.room:room-runtime:2.5.2
+- androidx.room:room-ktx:2.5.2
+- androidx.room:room-rxjava2:2.5.2
+- Annotation processor: KSP (Kotlin Symbol Processing)
+
+**UI (XML + Activities)**
+- androidx.appcompat:appcompat
+- com.google.android.material:material
+- androidx.constraintlayout:constraintlayout
+
+**Compose (unused, present for migration)**
+- androidx.activity:activity-compose
+- androidx.compose.bom and related libraries
+- androidx.material3
+
+**Core & Testing**
+- androidx.core:core-ktx
+- androidx.lifecycle:lifecycle-runtime-ktx
+- androidx.test.espresso:espresso-core
+- junit
 
 ## Testing
 
-The project includes support for:
-- **Unit Tests**: Located in `app/src/test/`
-- **Instrumented Tests**: Located in `app/src/androidTest/`
-- Test runner: `androidx.test.runner.AndroidJUnitRunner`
+Both test files (`ExampleUnitTest.kt` and the instrumented test) are untouched Android Studio templates and do not represent project test coverage. This is a good place to start adding real tests.
 
-Run tests with:
+To run:
 ```bash
 ./gradlew test                    # Unit tests
 ./gradlew connectedAndroidTest   # Instrumented tests
 ```
 
-## Architecture
+## Next Steps
 
-The application follows modern Android architectural patterns:
-- **Activities** for screen navigation
-- **Jetpack Compose** for declarative UI
-- **Room Database** for data persistence
-- **Coroutines** for asynchronous operations
-
-## Permissions
-
-The application requires appropriate permissions defined in `AndroidManifest.xml` for:
-- Data backup and extraction
-- Icon and theme resources
-- RTL (Right-to-Left) layout support
-
-## Future Enhancements
-
-Potential areas for expansion:
-- Cloud synchronization
-- Budget planning features
-- Financial reports and analytics
-- Receipt scanning
-- Multi-user support
-- Export to PDF/CSV
-
-## License
-
-This project is created by Woorim Cho. For license information, please check the repository.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit issues and pull requests to improve the application.
-
-## Author
-
-**Woorim Cho**
-- GitHub: [@WoorimCho](https://github.com/WoorimCho)
-
-## Support
-
-For questions or issues, please open an issue on the GitHub repository.
+- Complete the Compose migration by connecting AccountScreen to Activities
+- Add unit tests and instrumented tests for business logic
+- Add integration tests for Room database queries
+- Consider extracting business logic into a ViewModel layer
 
 ---
 
-**Note**: This is a trial/learning project ("AccountManagerTrialZone") demonstrating Android development practices with Kotlin, Jetpack Compose, and Room database.
+A learning/trial project by Woorim Cho.
